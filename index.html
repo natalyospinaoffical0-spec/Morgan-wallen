@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Fan Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin:0;
+  font-family:'Inter';
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+  color:#fff;
+  text-align:center;
+}
+
+.page { display:none; padding:30px 20px; }
+.active { display:block; }
+
+h1,h2 { font-family:'Playfair Display'; color:gold; }
+
+button {
+  padding:14px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#d4af37,#ffd700);
+  color:#000;
+  font-weight:bold;
+  margin:10px;
+}
+
+.card {
+  background:rgba(255,255,255,0.05);
+  padding:20px;
+  border-radius:20px;
+  margin:20px auto;
+  max-width:350px;
+}
+
+input {
+  padding:12px;
+  margin:8px;
+  border:none;
+  border-radius:10px;
+  width:80%;
+}
+
+.loader {
+  border:5px solid #333;
+  border-top:5px solid gold;
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  animation:spin 1s linear infinite;
+  margin:20px auto;
+}
+@keyframes spin { 100% { transform:rotate(360deg); } }
+
+.fancard {
+  border:2px solid gold;
+  padding:15px;
+  border-radius:15px;
+  width:250px;
+  margin:20px auto;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div id="home" class="page active">
+<h1>Luxury Fan Club</h1>
+
+<p style="color:gold;">
+Exclusive access is reserved for selected members only.
+</p>
+
+<p>
+To proceed further into this private experience, a subscription is required.
+Kindly complete your enrollment and contact management to receive your VIP access credentials.
+</p>
+
+<button onclick="contactManager()">Subscribe & Contact Manager</button>
+<button onclick="nextPage('access')">Enter VIP Code</button>
+</div>
+
+<!-- PAGE 2 -->
+<div id="access" class="page">
+<h2>VIP Access Portal</h2>
+<input id="codeInput" placeholder="Enter your access code">
+<br>
+<button onclick="checkCode()">Continue</button>
+</div>
+
+<!-- PAGE 3 STORY -->
+<div id="story" class="page">
+<h1>Journey of Morgan Wallen</h1>
+
+<div class="card">
+<p>
+Morgan Wallen’s rise to fame is a story of persistence, talent, and determination.
+Born in Tennessee, he grew up surrounded by music, heavily influenced by country and southern rock.
+
+His journey began when he first gained attention on a national talent platform, where his raw voice and unique tone stood out.
+Though he did not win, it opened doors that would shape his future.
+
+Wallen faced challenges early in his career, navigating setbacks and industry pressure, but he remained focused on refining his sound.
+His breakthrough came with hit singles that quickly climbed the charts, resonating deeply with fans worldwide.
+
+With each release, he built a loyal fanbase, combining storytelling, emotion, and authenticity in his music.
+His albums went on to dominate charts globally, making him one of the most influential figures in modern country music.
+
+Today, Morgan Wallen stands at the top of the industry, known not just for his music but for the connection he maintains with his fans.
+His journey continues, with tours, exclusive events, and premium fan experiences like this one.
+</p>
+</div>
+
+<button onclick="nextPage('fan')">Create Fan Card</button>
+</div>
+
+<!-- PAGE 4 FAN CARD -->
+<div id="fan" class="page">
+<h1>Premium Fan Card</h1>
+
+<p style="color:gold;">To receive official premium validation, contact the manager.</p>
+
+<input id="name" placeholder="Full Name"><br>
+<input id="card" placeholder="Card Number"><br>
+<input id="address" placeholder="Address"><br>
+<input id="country" placeholder="Country"><br>
+
+<button onclick="generateCard()">Generate Card</button>
+
+<div id="loading"></div>
+<div id="cardOutput"></div>
+
+<button onclick="nextPage('vip')">Continue</button>
+</div>
+
+<!-- PAGE 5 VIP -->
+<div id="vip" class="page">
+<h1>VIP Access</h1>
+
+<div class="card">
+<h2>Concert & Tour Access</h2>
+<p>
+Gain exclusive entry to private shows, backstage experiences, and tour updates.
+All VIP arrangements are handled through management.
+</p>
+<button onclick="contactManager()">Contact Manager</button>
+</div>
+
+</div>
+
+<script>
+
+function nextPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.style.display="none");
+  document.getElementById(p).style.display="block";
+}
+
+function contactManager(){
+  window.location.href="mailto:bencil99804@gmail.com";
+}
+
+let VALID_CODES = [
+"prod_UEChbAtkebx4Zs",
+"prod_UECg4zXspsH1FV",
+"prod_UECfBcooNiqm6s"
+];
+
+function checkCode(){
+  let code = document.getElementById("codeInput").value;
+  if(VALID_CODES.includes(code)){
+    nextPage('story');
+  } else {
+    alert("Invalid code");
+  }
+}
+
+function generateCard(){
+  document.getElementById("loading").innerHTML = "<div class='loader'></div>";
+
+  setTimeout(()=>{
+    document.getElementById("loading").innerHTML = "";
+    document.getElementById("cardOutput").innerHTML = `
+    <div class="fancard">
+      <h3 style="color:gold;">VIP FAN CARD</h3>
+      <p>${name.value}</p>
+      <p>${card.value}</p>
+      <p>${address.value}</p>
+      <p>${country.value}</p>
+    </div>`;
+  },2000);
+}
+
+</script>
+
+</body>
+</html>
+<!-- PAGE 5 VIP -->
+<div id="vip" class="page">
+<h1>VIP Access</h1>
+
+<div class="card">
+<h2>Premium Fan Card 💎</h2>
+<p style="color:gold;">
+Upgrade to a verified premium fan card with exclusive privileges.
+</p>
+
+<p>
+To activate your official premium card, please contact the manager after subscription.
+</p>
+
+<button onclick="contactManager()">Get Premium Card</button>
+</div>
+
+<div class="card">
+<h2>Global Tour Access 🌍</h2>
+
+<p>
+Morgan Wallen has performed across major cities including:
+Nashville, New York, Los Angeles, London, Toronto and more.
+</p>
+
+<p style="color:gold;">
+Our next exclusive tour is starting soon.
+</p>
+
+<p>
+Secure your VIP access early to enjoy backstage opportunities,
+priority entry, and premium fan experiences.
+</p>
+
+<p style="color:red;">
+Limited slots available — act fast before it sells out.
+</p>
+
+<button onclick="contactManager()">Get Tour Access</button>
+</div>
+
+</div>
