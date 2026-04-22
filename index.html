@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Morgan Wallen Fan Club</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+font-family:'Inter';
+color:white;
+background:black;
+overflow-x:hidden;
+}
+
+/* HERO */
+.hero{
+height:100vh;
+background:url('https://upload.wikimedia.org/wikipedia/commons/7/7c/Morgan_Wallen_2023.jpg') center/cover;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+}
+
+.overlay{
+position:absolute;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.7);
+}
+
+/* CARD */
+.card{
+position:relative;
+z-index:2;
+background:rgba(0,0,0,0.8);
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+box-shadow:0 0 30px rgba(255,215,0,0.4);
+text-align:center;
+}
+
+/* TITLE */
+h1{
+font-family:'Playfair Display';
+font-size:2em;
+background:linear-gradient(45deg,gold,white);
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+}
+
+/* INPUT */
+input{
+width:90%;
+padding:12px;
+border:none;
+border-radius:10px;
+margin-top:10px;
+}
+
+/* BUTTON */
+button{
+padding:12px 25px;
+border:none;
+border-radius:30px;
+background:linear-gradient(45deg,gold,#ffcc00);
+margin-top:15px;
+font-weight:bold;
+}
+
+/* PAGES */
+.page{
+display:none;
+padding:30px;
+min-height:100vh;
+background:linear-gradient(135deg,#000,#1a0033,#000);
+}
+.active{display:block;}
+
+img{
+width:100%;
+border-radius:15px;
+margin:15px 0;
+}
+
+/* ALERT */
+#liveAlert{
+position:fixed;
+top:15px;
+right:15px;
+background:black;
+padding:10px;
+border-radius:10px;
+color:gold;
+display:none;
+}
+</style>
+</head>
+
+<body>
+
+<div id="liveAlert"></div>
+
+<!-- PAGE 1 -->
+<div id="page1" class="hero">
+
+<div class="overlay"></div>
+
+<div class="card">
+<h1>Morgan Wallen Fan Club</h1>
+
+<p style="color:gold;">Private VIP Access</p>
+
+<p>Subscription required: <b>$500</b></p>
+
+<input id="codeInput" placeholder="Enter VIP Code">
+
+<button onclick="checkCode()">Unlock</button>
+
+<button onclick="contactManager()">Contact Manager</button>
+
+</div>
+</div>
+
+<!-- PAGE 2 -->
+<div id="page2" class="page">
+
+<h1>Biography</h1>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/4/4f/Morgan_Wallen_live.jpg">
+
+<p>
+Morgan Wallen rose from Tennessee roots to global fame through talent and persistence...
+(keep your long text here if you want)
+</p>
+
+<button onclick="nextPage('page3')">Continue</button>
+
+</div>
+
+<!-- PAGE 3 -->
+<div id="page3" class="page">
+
+<h1>Tour Access</h1>
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6e/Concert.jpg">
+
+<p>
+Exclusive VIP tours are coming soon. Limited access available.
+</p>
+
+<p style="color:gold;">
+Contact manager to get your tour ticket:
+</p>
+
+<button onclick="contactManager()">Get Ticket</button>
+
+<button onclick="nextPage('page4')">Continue</button>
+
+</div>
+
+<!-- PAGE 4 -->
+<div id="page4" class="page">
+
+<h1>Premium Membership</h1>
+
+<p>
+This is a confidential VIP membership program for selected fans.
+Members gain exclusive access, priority tickets, and private opportunities.
+</p>
+
+<p style="color:gold;">
+Contact manager to secure your membership card.
+</p>
+
+<button onclick="contactManager()">Get Membership</button>
+
+</div>
+
+<script>
+
+/* NAV */
+function nextPage(p){
+document.querySelectorAll('.page').forEach(x=>x.style.display="none");
+document.getElementById(p).style.display="block";
+}
+
+/* EMAIL (GMAIL) */
+function contactManager(){
+window.location.href="https://mail.google.com/mail/?view=cm&fs=1&to=sticksmanagement009@gmail.com&su=VIP%20Request&body=Hello,%20I%20want%20VIP%20access.";
+}
+
+/* LOGIN */
+function checkCode(){
+let code=document.getElementById("codeInput").value;
+
+if(code==="prod_UEChbAtkebx4Zs" || code==="prod_UECg4zXspsH1FV" || code==="prod_UECfBcooNiqm6s"){
+nextPage('page2');
+}else{
+alert("Invalid Code");
+}
+}
+
+/* ALERT */
+let alerts=["⚠️ Only 2 slots left","🔥 VIP almost full","👀 Someone just joined"];
+setInterval(()=>{
+let box=document.getElementById("liveAlert");
+box.innerText=alerts[Math.floor(Math.random()*alerts.length)];
+box.style.display="block";
+setTimeout(()=>box.style.display="none",3000);
+},5000);
+
+</script>
+
+</body>
+</html>
